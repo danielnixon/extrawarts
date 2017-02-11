@@ -92,7 +92,7 @@ to explicitly handle both populated and empty `GenTraversableLike`s.
 
 ### LegacyDateTimeCode
 
-The `Date`, `TimeZone` and `Calendar` classes in the `java.util` package are disabled. Use `java.time.*` instead. See [Legacy Date-Time Code](https://docs.oracle.com/javase/tutorial/datetime/iso/legacy.html).
+The `Date`, `TimeZone` and `Calendar` classes in the `java.util` package are disabled. Use `java.time.*` instead. See [Legacy Date-Time Code](https://docs.oracle.com/javase/tutorial/datetime/iso/legacy.html) and [MUST NOT use Java's Date or Calendar, instead use Joda-Time or JSR-310](https://github.com/alexandru/scala-best-practices/blob/master/sections/2-language-rules.md#211-must-not-use-javas-date-or-calendar-instead-use-joda-time-or-jsr-310).
 
 ### ScalaGlobalExecutionContext
 
