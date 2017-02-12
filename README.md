@@ -9,7 +9,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 
 | ExtraWarts version | WartRemover version | Scala version  |
 |--------------------|---------------------|----------------|
-| 0.1.0              | 1.3.0               | 2.11.8, 2.12.1 |
+| 0.2.0              | 2.0.1               | 2.11.8, 2.12.1 |
 
 ## Usage
 
@@ -17,7 +17,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 2. Add the following to your `plugins.sbt`:
 
     ```scala
-    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "0.1.0")
+    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "0.2.0")
     ```
 
 3. Add the following to your `build.sbt`:
