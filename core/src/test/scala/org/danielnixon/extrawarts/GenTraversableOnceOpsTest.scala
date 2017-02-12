@@ -13,7 +13,7 @@ class GenTraversableOnceOpsTest extends FunSuite {
     val result = WartTestTraverser(GenTraversableOnceOps) {
       println(list.reduce(_ + _))
     }
-    assertResult(List("GenTraversableOnce#reduce is disabled - use GenTraversableOnce#reduceOption or GenTraversableOnce#fold instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:GenTraversableOnceOps] GenTraversableOnce#reduce is disabled - use GenTraversableOnce#reduceOption or GenTraversableOnce#fold instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -21,7 +21,7 @@ class GenTraversableOnceOpsTest extends FunSuite {
     val result = WartTestTraverser(GenTraversableOnceOps) {
       println(list.reduceRight(_ + _))
     }
-    assertResult(List("GenTraversableOnce#reduceRight is disabled - use GenTraversableOnce#reduceRightOption or GenTraversableOnce#foldRight instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:GenTraversableOnceOps] GenTraversableOnce#reduceRight is disabled - use GenTraversableOnce#reduceRightOption or GenTraversableOnce#foldRight instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

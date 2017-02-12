@@ -8,7 +8,7 @@ class UntypedEqualityTest extends FunSuite {
     val result = WartTestTraverser(UntypedEquality) {
       val foo = "" eq ""
     }
-    assertResult(List("Untyped equality is disabled - use a typesafe alternative"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:UntypedEquality] Untyped equality is disabled - use a typesafe alternative"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -16,7 +16,7 @@ class UntypedEqualityTest extends FunSuite {
     val result = WartTestTraverser(UntypedEquality) {
       val foo = "" ne ""
     }
-    assertResult(List("Untyped equality is disabled - use a typesafe alternative"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:UntypedEquality] Untyped equality is disabled - use a typesafe alternative"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -24,7 +24,7 @@ class UntypedEqualityTest extends FunSuite {
     val result = WartTestTraverser(UntypedEquality) {
       val foo = "" equals ""
     }
-    assertResult(List("Untyped equality is disabled - use a typesafe alternative"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:UntypedEquality] Untyped equality is disabled - use a typesafe alternative"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 }

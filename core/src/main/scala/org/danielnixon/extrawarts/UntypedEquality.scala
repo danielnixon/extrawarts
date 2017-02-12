@@ -17,9 +17,9 @@ object UntypedEquality extends WartTraverser {
           // Ignore trees marked by SuppressWarnings
           case t if hasWartAnnotation(u)(t) =>
           case t if isSynthetic(u)(t) =>
-          case Select(left, EqName) if !isSynthetic(u)(left) => u.error(tree.pos, errorMessage)
-          case Select(left, NeName) if !isSynthetic(u)(left) => u.error(tree.pos, errorMessage)
-          case Select(left, EqualsName) if !isSynthetic(u)(left) => u.error(tree.pos, errorMessage)
+          case Select(left, EqName) if !isSynthetic(u)(left) => error(u)(tree.pos, errorMessage)
+          case Select(left, NeName) if !isSynthetic(u)(left) => error(u)(tree.pos, errorMessage)
+          case Select(left, EqualsName) if !isSynthetic(u)(left) => error(u)(tree.pos, errorMessage)
           case _ => super.traverse(tree)
         }
       }

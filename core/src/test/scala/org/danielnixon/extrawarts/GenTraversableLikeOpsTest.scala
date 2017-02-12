@@ -13,7 +13,7 @@ class GenTraversableLikeOpsTest extends FunSuite {
     val result = WartTestTraverser(GenTraversableLikeOps) {
       println(list.head)
     }
-    assertResult(List("GenTraversableLike#head is disabled - use GenTraversableLike#headOption instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:GenTraversableLikeOps] GenTraversableLike#head is disabled - use GenTraversableLike#headOption instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -21,7 +21,7 @@ class GenTraversableLikeOpsTest extends FunSuite {
     val result = WartTestTraverser(GenTraversableLikeOps) {
       println(list.tail)
     }
-    assertResult(List("GenTraversableLike#tail is disabled - use GenTraversableLike#drop(1) instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:GenTraversableLikeOps] GenTraversableLike#tail is disabled - use GenTraversableLike#drop(1) instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -29,7 +29,7 @@ class GenTraversableLikeOpsTest extends FunSuite {
     val result = WartTestTraverser(GenTraversableLikeOps) {
       println(list.init)
     }
-    assertResult(List("GenTraversableLike#init is disabled - use GenTraversableLike#dropRight(1) instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:GenTraversableLikeOps] GenTraversableLike#init is disabled - use GenTraversableLike#dropRight(1) instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -37,7 +37,7 @@ class GenTraversableLikeOpsTest extends FunSuite {
     val result = WartTestTraverser(GenTraversableLikeOps) {
       println(list.last)
     }
-    assertResult(List("GenTraversableLike#last is disabled - use GenTraversableLike#lastOption instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:GenTraversableLikeOps] GenTraversableLike#last is disabled - use GenTraversableLike#lastOption instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

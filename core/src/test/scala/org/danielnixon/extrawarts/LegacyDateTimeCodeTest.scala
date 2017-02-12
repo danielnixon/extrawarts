@@ -8,7 +8,7 @@ class LegacyDateTimeCodeTest extends FunSuite {
     val result = WartTestTraverser(LegacyDateTimeCode) {
       val foo = new java.util.Date
     }
-    assertResult(List("java.util.Date is disabled - use java.time.* instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:Date] java.util.Date is disabled - use java.time.* instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -32,7 +32,7 @@ class LegacyDateTimeCodeTest extends FunSuite {
         override def computeTime(): Unit = ???
       }
     }
-    assertResult(List("java.util.Calendar is disabled - use java.time.* instead", "java.util.Calendar is disabled - use java.time.* instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:Calendar] java.util.Calendar is disabled - use java.time.* instead", "[wartremover:Calendar] java.util.Calendar is disabled - use java.time.* instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -40,7 +40,7 @@ class LegacyDateTimeCodeTest extends FunSuite {
     val result = WartTestTraverser(LegacyDateTimeCode) {
       val foo = new java.util.GregorianCalendar
     }
-    assertResult(List("java.util.Calendar is disabled - use java.time.* instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:Calendar] java.util.Calendar is disabled - use java.time.* instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -58,7 +58,7 @@ class LegacyDateTimeCodeTest extends FunSuite {
         override def inDaylightTime(date: java.util.Date): Boolean = ???
       }
     }
-    assertResult(List("java.util.TimeZone is disabled - use java.time.* instead", "java.util.TimeZone is disabled - use java.time.* instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:TimeZone] java.util.TimeZone is disabled - use java.time.* instead", "[wartremover:TimeZone] java.util.TimeZone is disabled - use java.time.* instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 }

@@ -8,7 +8,7 @@ class ScalaGlobalExecutionContextTest extends FunSuite {
     val result = WartTestTraverser(ScalaGlobalExecutionContext) {
       val foo = scala.concurrent.ExecutionContext.global
     }
-    assertResult(List("ExecutionContext#global is disabled - declare a dependency on an ExecutionContext instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:ScalaGlobalExecutionContext] ExecutionContext#global is disabled - declare a dependency on an ExecutionContext instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -16,7 +16,7 @@ class ScalaGlobalExecutionContextTest extends FunSuite {
     val result = WartTestTraverser(ScalaGlobalExecutionContext) {
       val foo = scala.concurrent.ExecutionContext.Implicits
     }
-    assertResult(List("ExecutionContext#Implicits is disabled - declare a dependency on an ExecutionContext instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:ScalaGlobalExecutionContext] ExecutionContext#Implicits is disabled - declare a dependency on an ExecutionContext instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

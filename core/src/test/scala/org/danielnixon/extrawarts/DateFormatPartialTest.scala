@@ -12,7 +12,7 @@ class DateFormatPartialTest extends FunSuite {
     val result = WartTestTraverser(DateFormatPartial) {
       val foo = format.parse("foo")
     }
-    assertResult(List("DateFormat#parse is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:DateFormatPartial] DateFormat#parse is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

@@ -12,7 +12,7 @@ class GenMapLikePartialTest extends FunSuite {
     val result = WartTestTraverser(GenMapLikePartial) {
       val foo = map("foo")
     }
-    assertResult(List("GenMapLike#apply is disabled - use GenMapLike#get instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:GenMapLikePartial] GenMapLike#apply is disabled - use GenMapLike#get instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

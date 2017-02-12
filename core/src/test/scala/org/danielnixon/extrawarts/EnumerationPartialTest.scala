@@ -11,7 +11,7 @@ class EnumerationPartialTest extends FunSuite {
     val result = WartTestTraverser(EnumerationPartial) {
       val foo = Enum.withName("")
     }
-    assertResult(List("Enumeration#withName is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:EnumerationPartial] Enumeration#withName is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

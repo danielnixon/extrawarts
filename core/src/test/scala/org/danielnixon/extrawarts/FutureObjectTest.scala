@@ -14,7 +14,7 @@ class FutureObjectTest extends FunSuite {
     val result = WartTestTraverser(FutureObject) {
       val foo = Future.reduce(futs)((r, t) => r)
     }
-    assertResult(List("Future#reduce is disabled - use Future#fold instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:FutureObject] Future#reduce is disabled - use Future#fold instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

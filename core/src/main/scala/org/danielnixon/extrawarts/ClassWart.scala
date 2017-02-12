@@ -14,7 +14,7 @@ abstract class ClassWart(targetClassName: String, errorMessage: String) extends 
           // Ignore trees marked by SuppressWarnings
           case t if hasWartAnnotation(u)(t) =>
           case Select(left, _) if left.tpe.baseType(symbol) != NoType ⇒
-            u.error(tree.pos, errorMessage)
+            error(u)(tree.pos, errorMessage)
           // TODO: This ignores a lot
           case LabelDef(_, _, rhs) if isSynthetic(u)(tree) ⇒
           case _ ⇒

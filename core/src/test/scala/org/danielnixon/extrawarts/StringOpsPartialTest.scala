@@ -9,7 +9,7 @@ class StringOpsPartialTest extends FunSuite {
     val result = WartTestTraverser(StringOpsPartial) {
       val foo = "foo".toBoolean
     }
-    assertResult(List("StringOps#toBoolean is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:StringOpsPartial] StringOps#toBoolean is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -17,7 +17,7 @@ class StringOpsPartialTest extends FunSuite {
     val result = WartTestTraverser(StringOpsPartial) {
       val foo = "foo".toByte
     }
-    assertResult(List("StringOps#toByte is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:StringOpsPartial] StringOps#toByte is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -25,7 +25,7 @@ class StringOpsPartialTest extends FunSuite {
     val result = WartTestTraverser(StringOpsPartial) {
       val foo = "foo".toShort
     }
-    assertResult(List("StringOps#toShort is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:StringOpsPartial] StringOps#toShort is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -33,7 +33,7 @@ class StringOpsPartialTest extends FunSuite {
     val result = WartTestTraverser(StringOpsPartial) {
       val foo = "foo".toInt
     }
-    assertResult(List("StringOps#toInt is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:StringOpsPartial] StringOps#toInt is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -41,7 +41,7 @@ class StringOpsPartialTest extends FunSuite {
     val result = WartTestTraverser(StringOpsPartial) {
       val foo = "foo".toLong
     }
-    assertResult(List("StringOps#toLong is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:StringOpsPartial] StringOps#toLong is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -49,7 +49,7 @@ class StringOpsPartialTest extends FunSuite {
     val result = WartTestTraverser(StringOpsPartial) {
       val foo = "foo".toFloat
     }
-    assertResult(List("StringOps#toFloat is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:StringOpsPartial] StringOps#toFloat is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -57,7 +57,7 @@ class StringOpsPartialTest extends FunSuite {
     val result = WartTestTraverser(StringOpsPartial) {
       val foo = "foo".toDouble
     }
-    assertResult(List("StringOps#toDouble is disabled"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:StringOpsPartial] StringOps#toDouble is disabled"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 

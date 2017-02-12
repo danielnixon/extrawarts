@@ -13,7 +13,7 @@ class TraversableOnceOpsTest extends FunSuite {
     val result = WartTestTraverser(TraversableOnceOps) {
       println(list.reduceLeft(_ + _))
     }
-    assertResult(List("TraversableOnce#reduceLeft is disabled - use TraversableOnce#reduceLeftOption or TraversableOnce#foldLeft instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:TraversableOnceOps] TraversableOnce#reduceLeft is disabled - use TraversableOnce#reduceLeftOption or TraversableOnce#foldLeft instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -21,7 +21,7 @@ class TraversableOnceOpsTest extends FunSuite {
     val result = WartTestTraverser(TraversableOnceOps) {
       println(list.max)
     }
-    assertResult(List("TraversableOnce#max is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:TraversableOnceOps] TraversableOnce#max is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -29,7 +29,7 @@ class TraversableOnceOpsTest extends FunSuite {
     val result = WartTestTraverser(TraversableOnceOps) {
       println(list.min)
     }
-    assertResult(List("TraversableOnce#min is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:TraversableOnceOps] TraversableOnce#min is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -37,7 +37,7 @@ class TraversableOnceOpsTest extends FunSuite {
     val result = WartTestTraverser(TraversableOnceOps) {
       println(list.maxBy(x => x))
     }
-    assertResult(List("TraversableOnce#maxBy is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:TraversableOnceOps] TraversableOnce#maxBy is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
@@ -45,7 +45,7 @@ class TraversableOnceOpsTest extends FunSuite {
     val result = WartTestTraverser(TraversableOnceOps) {
       println(list.minBy(x => x))
     }
-    assertResult(List("TraversableOnce#minBy is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
+    assertResult(List("[wartremover:TraversableOnceOps] TraversableOnce#minBy is disabled - use TraversableOnce#reduceLeftOption instead"), "result.errors")(result.errors)
     assertResult(List.empty, "result.warnings")(result.warnings)
   }
 
