@@ -4,7 +4,7 @@ val scala210 = "2.10.6"
 val scala211 = "2.11.8"
 val scala212 = "2.12.1"
 val coreName = "extrawarts"
-val wartremoverVersion = "2.0.1"
+val wartremoverVersion = "2.0.3"
 val scalatestVersion = "3.0.1"
 
 lazy val commonSettings = Seq(
