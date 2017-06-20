@@ -1,7 +1,7 @@
 import scalariform.formatter.preferences._
 
 val scala210 = "2.10.6"
-val scala211 = "2.11.8"
+val scala211 = "2.11.11"
 val scala212 = "2.12.2"
 val coreName = "extrawarts"
 val wartremoverVersion = "2.1.1"
