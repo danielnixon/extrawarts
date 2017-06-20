@@ -3,8 +3,6 @@ package org.danielnixon.extrawarts
 import wartremover.Wart
 
 object ExtraWart {
-  @deprecated("Use the Java 8 Time API instead.", "0.3.0")
-  val DateFormatPartial: Wart = wart("DateFormatPartial")
   val EnumerationPartial: Wart = wart("EnumerationPartial")
   val FutureObject: Wart = wart("FutureObject")
   val GenMapLikePartial: Wart = wart("GenMapLikePartial")
