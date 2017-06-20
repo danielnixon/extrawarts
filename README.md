@@ -9,7 +9,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 
 | ExtraWarts version | WartRemover version | Scala version  |
 |--------------------|---------------------|----------------|
-| 0.2.0              | 2.0.1               | 2.11.8, 2.12.1 |
+| 0.3.0              | 2.1.1               | 2.11.8, 2.12.2 |
 
 ## Usage
 
@@ -17,37 +17,23 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 2. Add the following to your `plugins.sbt`:
 
     ```scala
-    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "0.2.0")
+    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "0.3.0")
     ```
 
 3. Add the following to your `build.sbt`:
     ```scala
     wartremoverWarnings ++= Seq(
-      ExtraWart.DateFormatPartial,
       ExtraWart.EnumerationPartial,
       ExtraWart.FutureObject,
       ExtraWart.GenMapLikePartial,
       ExtraWart.GenTraversableLikeOps,
       ExtraWart.GenTraversableOnceOps,
-      ExtraWart.LegacyDateTimeCode,
       ExtraWart.ScalaGlobalExecutionContext,
       ExtraWart.StringOpsPartial,
-      ExtraWart.TraversableOnceOps,
-      ExtraWart.UntypedEquality)
+      ExtraWart.TraversableOnceOps)
     ```
 
 ## Warts
-
-### DateFormatPartial
-
-`java.text.DateFormat#parse` is disabled because it can throw a `ParseException`. You can wrap it in an implicit that might look like this:
-
-```scala
-implicit class DateFormatWrapper(val dateFormat: DateFormat) extends AnyVal {
-  @SuppressWarnings(Array("org.danielnixon.extrawarts.DateFormatPartial"))
-  def parseOpt(source: String): Option[Date] = nonFatalCatch[Date] opt dateFormat.parse(source)
-}
-```
 
 ### EnumerationPartial
 
@@ -89,10 +75,6 @@ all of which will throw if the list is empty. The program should be refactored t
 * `GenTraversableLike#lastOption` respectively,
 
 to explicitly handle both populated and empty `GenTraversableLike`s.
-
-### LegacyDateTimeCode
-
-The `Date`, `TimeZone` and `Calendar` classes in the `java.util` package are disabled. Use `java.time.*` instead. See [Legacy Date-Time Code](https://docs.oracle.com/javase/tutorial/datetime/iso/legacy.html) and [MUST NOT use Java's Date or Calendar, instead use Joda-Time or JSR-310](https://github.com/alexandru/scala-best-practices/blob/master/sections/2-language-rules.md#211-must-not-use-javas-date-or-calendar-instead-use-joda-time-or-jsr-310).
 
 ### ScalaGlobalExecutionContext
 
@@ -143,17 +125,6 @@ implicit class TraversableOnceWrapper[A](val traversable: TraversableOnce[A]) ex
   }
 }
 ```
-
-
-### UntypedEquality
-
-`scala.Any` and `scala.AnyRef` contain a number of untyped equality methods:
-
-* `equals`
-* `eq`
-* `ne`
-
-All of which are disabled. Use a typesafe alternative (such as [Scalaz's Equal typeclass](http://eed3si9n.com/learning-scalaz/Equal.html) or [Heiko Seeberger's solution](http://hseeberger.github.io/blog/2013/05/30/implicits-unchained-type-safe-equality-part1/)) instead.
 
 ## See also
 
