@@ -13,7 +13,6 @@ object ExtraWart {
   val ScalaGlobalExecutionContext: Wart = wart("ScalaGlobalExecutionContext")
   val StringOpsPartial: Wart = wart("StringOpsPartial")
   val TraversableOnceOps: Wart = wart("TraversableOnceOps")
-  val UntypedEquality: Wart = wart("UntypedEquality")
 
   private def wart(name: String) = {
     Wart.custom(s"org.danielnixon.extrawarts.$name")
