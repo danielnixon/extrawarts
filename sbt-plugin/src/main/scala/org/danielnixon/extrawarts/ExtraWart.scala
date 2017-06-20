@@ -10,8 +10,6 @@ object ExtraWart {
   val GenMapLikePartial: Wart = wart("GenMapLikePartial")
   val GenTraversableLikeOps: Wart = wart("GenTraversableLikeOps")
   val GenTraversableOnceOps: Wart = wart("GenTraversableOnceOps")
-  @deprecated("Use wartremover-contrib's OldTime wart instead.", "0.3.0")
-  val LegacyDateTimeCode: Wart = wart("LegacyDateTimeCode")
   val ScalaGlobalExecutionContext: Wart = wart("ScalaGlobalExecutionContext")
   val StringOpsPartial: Wart = wart("StringOpsPartial")
   val TraversableOnceOps: Wart = wart("TraversableOnceOps")
