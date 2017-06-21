@@ -13,7 +13,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 
 ## Usage
 
-1. Setup [WartRemover](https://github.com/wartremover/wartremover).
+1. Setup [WartRemover](http://www.wartremover.org/doc/install-setup.html).
 2. Add the following to your `plugins.sbt`:
 
     ```scala
