@@ -1,44 +1,29 @@
 import scalariform.formatter.preferences._
+import ReleaseTransformations._
 
 val scala210 = "2.10.6"
 val scala211 = "2.11.11"
-val scala212 = "2.12.2"
+val scala212 = "2.12.3"
+val scalaVersions = Seq(scala211, scala212)
 val coreName = "extrawarts"
-val wartremoverVersion = "2.1.1"
-val scalatestVersion = "3.0.3"
+val wartremoverVersion = "2.2.1"
+val scalatestVersion = "3.0.4"
 
 lazy val commonSettings = Seq(
   organization := "org.danielnixon",
   licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-  version := "0.4.0-SNAPSHOT",
-  publishMavenStyle := true,
-  publishArtifact in Test := false,
-  publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-  },
   homepage := Some(url("https://github.com/danielnixon/extrawarts")),
-  pomExtra := {
-    <scm>
-      <url>git@github.com:danielnixon/extrawarts.git</url>
-      <connection>scm:git:git@github.com:danielnixon/extrawarts.git</connection>
-    </scm>
-      <developers>
-        <developer>
-          <id>danielnixon</id>
-          <name>Daniel Nixon</name>
-          <url>https://danielnixon.org/</url>
-        </developer>
-      </developers>
-  },
+  scmInfo := Some(
+    ScmInfo(url("https://github.com/danielnixon/extrawarts"), "git@github.com:danielnixon/extrawarts.git")),
+  developers := List(
+    Developer("danielnixon", "Daniel Nixon", "dan.nixon@gmail.com", url("https://danielnixon.org/"))
+  ),
   coverageMinimum := 90,
   coverageFailOnMinimum := true,
   scalariformPreferences := scalariformPreferences.value
-    .setPreference(DoubleIndentClassDeclaration, true)
-    .setPreference(PlaceScaladocAsterisksBeneathSecondAsterisk, true),
+    .setPreference(DoubleIndentConstructorArguments, true)
+    .setPreference(PlaceScaladocAsterisksBeneathSecondAsterisk, true)
+    .setPreference(DanglingCloseParenthesis, Preserve),
   scalacOptions ++= Seq(
     "-deprecation",
     "-feature",
@@ -48,16 +33,50 @@ lazy val commonSettings = Seq(
     "-Ywarn-inaccessible",
     "-Ywarn-value-discard",
     "-Ywarn-numeric-widen",
-    "-Ywarn-nullary-override")
+    "-Ywarn-nullary-override"),
+  scalacOptions ++= {
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, n)) if n >= 11 => Seq("-Xlint:_")
+      case _ => Seq("-Xlint")
+    }
+  },
+  scalaVersion := scala212,
+  sbtVersion := {
+    scalaBinaryVersion.value match {
+      case "2.10" => "0.13.16"
+      case _      => "1.0.2"
+    }
+  }
 )
+
+lazy val root = Project(
+  id = "root",
+  base = file("."),
+  aggregate = Seq(core, sbtPlug)
+).settings(commonSettings ++ Seq(
+  publishArtifact := false,
+  releaseCrossBuild := true,
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    releaseStepCommandAndRemaining("+test"),
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    releaseStepCommandAndRemaining("+publishSigned"),
+    setNextVersion,
+    commitNextVersion,
+    releaseStepCommandAndRemaining("sonatypeReleaseAll"),
+    pushChanges
+  )
+): _*).enablePlugins(CrossPerProjectPlugin)
 
 lazy val core = Project(
   id = "core",
   base = file("core")
 ).settings(commonSettings ++ Seq(
   name := coreName,
-  scalaVersion := scala211,
-  crossScalaVersions := Seq(scala211, scala212),
+  crossScalaVersions := scalaVersions,
   libraryDependencies ++= Seq(
     "org.wartremover" %% "wartremover" % wartremoverVersion,
     "org.scalatest" %% "scalatest" % scalatestVersion % Test
@@ -65,8 +84,18 @@ lazy val core = Project(
   dependencyOverrides ++= Set(
     "org.scalatest" %% "scalatest" % scalatestVersion
   ),
-  scalacOptions ++= Seq("-Xlint:_", "-Ywarn-unused", "-Ywarn-unused-import")
-): _*)
+  scalacOptions ++= Seq("-Ywarn-unused", "-Ywarn-unused-import")
+): _*).enablePlugins(CrossPerProjectPlugin)
+
+/**
+  * Workaround for https://github.com/sbt/sbt/issues/3393.
+  */
+def addSbtPluginHack(dependency: ModuleID): Setting[Seq[ModuleID]] =
+  libraryDependencies += {
+    val sbtV = (sbtBinaryVersion in pluginCrossBuild).value
+    val scalaV = (scalaBinaryVersion in update).value
+    Defaults.sbtPluginExtra(dependency, sbtV, scalaV)
+  }
 
 lazy val sbtPlug: Project = Project(
   id = "sbt-plugin",
@@ -80,10 +109,6 @@ lazy val sbtPlug: Project = Project(
   buildInfoPackage := s"${organization.value}.$coreName",
   sbtPlugin := true,
   name := s"sbt-$coreName",
-  scalaVersion := scala210,
-  addSbtPlugin("org.wartremover" %% "sbt-wartremover" % wartremoverVersion),
-  scalacOptions += "-Xlint"
-): _*)
-
-addCommandAlias("publishLocalCoverageOff", ";clean;coverageOff;compile;test;publishLocal")
-addCommandAlias("publishSignedCoverageOff", ";clean;coverageOff;compile;test;publishSigned")
+  crossScalaVersions := Seq(scala210, scala212),
+  addSbtPluginHack("org.wartremover" %% "sbt-wartremover" % wartremoverVersion)
+): _*).enablePlugins(CrossPerProjectPlugin)
