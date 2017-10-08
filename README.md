@@ -7,9 +7,10 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 
 ## Versions
 
-| ExtraWarts version | WartRemover version | Scala version  |
-|--------------------|---------------------|----------------|
-| 0.3.0              | 2.1.1               | 2.11.8, 2.12.2 |
+| ExtraWarts version | WartRemover version | Scala version   | sbt version   | Supported |
+|--------------------|---------------------|-----------------|---------------|-----------|
+| 1.0.0              | 2.2.1               | 2.11.11, 2.12.3 | 0.13.x, 1.0.x |           |
+| 0.3.0              | 2.1.1               | 2.11.8, 2.12.2  | 0.13.x        | No        |
 
 ## Usage
 
@@ -17,7 +18,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 2. Add the following to your `plugins.sbt`:
 
     ```scala
-    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "0.3.0")
+    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "1.0.0")
     ```
 
 3. Add the following to your `build.sbt`:
@@ -30,6 +31,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
       ExtraWart.GenTraversableOnceOps,
       ExtraWart.ScalaGlobalExecutionContext,
       ExtraWart.StringOpsPartial,
+      ExtraWart.ThrowablePartial,
       ExtraWart.TraversableOnceOps)
     ```
 
@@ -101,6 +103,17 @@ implicit class StringWrapper(val value: String) extends AnyVal {
 
   @SuppressWarnings(Array("org.danielnixon.extrawarts.StringOpsPartial"))
   def toIntOpt: Option[Int] = catching[Int](classOf[NumberFormatException]) opt value.toInt
+}
+```
+
+### ThrowablePartial
+
+`java.lang.Throwable#getCause` is disabled because it can return null. You can wrap it in an implicit that might look like this:
+
+```scala
+implicit class ThrowableWrapper(val t: Throwable) extends AnyVal {
+  @SuppressWarnings(Array("org.danielnixon.extrawarts.ThrowablePartial"))
+  def cause: Option[Throwable] = Option(t.getCause)
 }
 ```
 
