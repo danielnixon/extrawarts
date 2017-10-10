@@ -147,36 +147,36 @@ implicit class TraversableOnceWrapper[A](val traversable: TraversableOnce[A]) ex
 If you use [Scalaz](https://github.com/scalaz/scalaz), you can replace it with something like this:
 
 ```scala
-  import scalaz._
-  import Scalaz._
-  
-  implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
-    def containsSafe[A1 >: A](elem: A1)(implicit ev: Equal[A1]): Boolean = {
-      seq.exists(x => elem === x)
-    }
+import scalaz._
+import Scalaz._
+
+implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
+  def containsSafe[A1 >: A](elem: A1)(implicit ev: Equal[A1]): Boolean = {
+    seq.exists(x => elem === x)
   }
+}
 ```
 
 If you use [Cats](https://typelevel.org/cats/), you can replace it with something like this:
 
 ```scala
-  import cats.Eq
-  import cats.implicits._
-  
-  implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
-    def containsSafe[A1 >: A](elem: A1)(implicit ev: Eq[A1]): Boolean = {
-      seq.exists(x => elem === x)
-    }
+import cats.Eq
+import cats.implicits._
+
+implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
+  def containsSafe[A1 >: A](elem: A1)(implicit ev: Eq[A1]): Boolean = {
+    seq.exists(x => elem === x)
   }
+}
 ```
 
 Or simply:
 
 ```scala
-  implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
-    @SuppressWarnings(Array("org.danielnixon.extrawarts.UnsafeContains"))
-    def containsSafe(elem: A): Boolean = seq.contains(elem)
-  }
+implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
+  @SuppressWarnings(Array("org.danielnixon.extrawarts.UnsafeContains"))
+  def containsSafe(elem: A): Boolean = seq.contains(elem)
+}
 ```
 
 ## See also
