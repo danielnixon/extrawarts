@@ -174,6 +174,7 @@ Or simply:
 
 ```scala
   implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
+    @SuppressWarnings(Array("org.danielnixon.extrawarts.UnsafeContains"))
     def containsSafe(elem: A): Boolean = seq.contains(elem)
   }
 ```
