@@ -170,6 +170,14 @@ If you use [Cats](https://typelevel.org/cats/), you can replace it with somethin
   }
 ```
 
+Or simply:
+
+```scala
+  implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
+    def containsSafe(elem: A): Boolean = seq.contains(elem)
+  }
+```
+
 ## See also
 
 * [PlayWarts](https://github.com/danielnixon/playwarts):  WartRemover warts for [Play Framework](https://www.playframework.com/).
