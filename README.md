@@ -9,7 +9,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 
 | ExtraWarts version | WartRemover version | Scala version   | sbt version   | Supported |
 |--------------------|---------------------|-----------------|---------------|-----------|
-| 1.0.0              | 2.2.1               | 2.11.11, 2.12.3 | 0.13.x, 1.0.x |           |
+| 1.0.1              | 2.2.1               | 2.11.11, 2.12.3 | 0.13.x, 1.0.x |           |
 | 0.3.0              | 2.1.1               | 2.11.8, 2.12.2  | 0.13.x        | No        |
 
 ## Usage
@@ -18,7 +18,7 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
 2. Add the following to your `plugins.sbt`:
 
     ```scala
-    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "1.0.0")
+    addSbtPlugin("org.danielnixon" % "sbt-extrawarts" % "1.0.1")
     ```
 
 3. Add the following to your `build.sbt`:
@@ -32,7 +32,8 @@ Some extra [WartRemover](https://github.com/wartremover/wartremover) warts that 
       ExtraWart.ScalaGlobalExecutionContext,
       ExtraWart.StringOpsPartial,
       ExtraWart.ThrowablePartial,
-      ExtraWart.TraversableOnceOps)
+      ExtraWart.TraversableOnceOps,
+      ExtraWart.UnsafeContains)
     ```
 
 ## Warts
@@ -137,6 +138,36 @@ implicit class TraversableOnceWrapper[A](val traversable: TraversableOnce[A]) ex
     if (traversable.isEmpty) None else Some(traversable.max(cmp))
   }
 }
+```
+
+### UnsafeContains
+
+`scala.collection.SeqLike#contains` is based on [universal equality](http://www.wartremover.org/doc/warts.html#equals) (`seq.contains(elem)` is equivalent to `seq.exists(_ == elem)`) so it is disabled.
+
+If you use [Scalaz](https://github.com/scalaz/scalaz), you can replace it with something like this:
+
+```scala
+  import scalaz._
+  import Scalaz._
+  
+  implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
+    def containsSafe[A1 >: A](elem: A1)(implicit ev: Equal[A1]): Boolean = {
+      seq.exists(x => elem === x)
+    }
+  }
+```
+
+If you use [Cats](https://typelevel.org/cats/), you can replace it with something like this:
+
+```scala
+  import cats.Eq
+  import cats.implicits._
+  
+  implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
+    def containsSafe[A1 >: A](elem: A1)(implicit ev: Eq[A1]): Boolean = {
+      seq.exists(x => elem === x)
+    }
+  }
 ```
 
 ## See also
