@@ -151,7 +151,7 @@ import scalaz._
 import Scalaz._
 
 implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
-  def containsSafe[A1 >: A](elem: A1)(implicit ev: Equal[A1]): Boolean = {
+  def containsSafe(elem: A)(implicit ev: Equal[A]): Boolean = {
     seq.exists(x => elem === x)
   }
 }
@@ -164,13 +164,13 @@ import cats.Eq
 import cats.implicits._
 
 implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
-  def containsSafe[A1 >: A](elem: A1)(implicit ev: Eq[A1]): Boolean = {
+  def containsSafe(elem: A)(implicit ev: Eq[A]): Boolean = {
     seq.exists(x => elem === x)
   }
 }
 ```
 
-Or simply:
+Or simply (if you're willing to tolerate the universal equality):
 
 ```scala
 implicit class SeqLikeWrapper[A](val seq: SeqLike[A, _]) extends AnyVal {
